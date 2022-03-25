@@ -1,4 +1,6 @@
-class Arrow (n: String, i: Int){
+class Arrow (n: String, xCord: Int, yCord: Int, i: Int){
+  val x = xCord
+  val y = yCord
   var name = n
   val id = i
   def rotate(d: Int)={
