@@ -25,7 +25,7 @@ class Board(x: Int, y: Int) {
         if (board(i)(j).isDefined) {
           print(board(i)(j).get.name)
         } else {
-          print("x")
+          print(".")
         }
       }
       println()
