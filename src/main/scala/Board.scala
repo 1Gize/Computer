@@ -46,19 +46,25 @@ class Board(x: Int, y: Int) {
       ar.name match
       {
 
-        case "^" => board(calcPosVer(stepsV,ar))(ar.y) = board(ar.x)(ar.y)
+        case "^" =>if(stepsV != 0){ board(calcPosVer(stepsV,ar))(ar.y) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
-          ar.x = calcPosVer(stepsV,ar)
-        case ">" => board(ar.x)(calcPosHor(stepsH,ar)) = board(ar.x)(ar.y)
+          ar.x = calcPosVer(stepsV,ar)}
+        else{}
+        case ">" => if(stepsH != 0){board(ar.x)(calcPosHor(stepsH,ar)) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
           ar.y = calcPosHor(stepsH,ar)
-        case "v" => board(calcPosVer(stepsV,ar))(ar.y) = board(ar.x)(ar.y)
+        }else {}
+        case "v" => if(stepsV != 0){board(calcPosVer(stepsV,ar))(ar.y) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
-          ar.x = calcPosVer(stepsV,ar)
+          ar.x = calcPosVer(stepsV,ar)}
+        else{}
 
-        case "<" => board(ar.x)(calcPosHor(stepsH,ar)) = board(ar.x)(ar.y)
+        case "<" =>if(stepsH != 0) {board(ar.x)(calcPosHor(stepsH,ar)) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
           ar.y = calcPosHor(stepsH,ar)
+        }else {
+
+        }
       }
     })
   }
