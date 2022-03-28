@@ -40,21 +40,60 @@ class Board(x: Int, y: Int) {
   }
 
   def move(id: Int, m: Int) = {
+    val stepsV = m%board.length
+    val stepsH = m%board(0).length
     arrows.foreach(ar => if (ar.id == id) {
       ar.name match
       {
-        case "^" => board(ar.x - m)(ar.y) = board(ar.x)(ar.y)
+
+        case "^" => board(calcPosVer(stepsV,ar))(ar.y) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
-        case ">" => board(ar.x)(ar.y + m) = board(ar.x)(ar.y)
+          ar.x = calcPosVer(stepsV,ar)
+        case ">" => board(ar.x)(calcPosHor(stepsH,ar)) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
-        case "v" => board(ar.x + m)(ar.y) = board(ar.x)(ar.y)
+          ar.y - calcPosHor(stepsH,ar)
+        case "v" => board(calcPosVer(stepsV,ar))(ar.y) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
-        case "<" => board(ar.x)(ar.y - m) = board(ar.x)(ar.y)
+          ar.x = calcPosVer(stepsV,ar)
+
+        case "<" => board(ar.x)(calcPosHor(stepsH,ar)) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
+          ar.y = calcPosHor(stepsH,ar)
       }
     })
   }
-
+  def calcPosHor(delta: Int, arr: Arrow): Int={
+    arr.name match {
+      case "<" => if((arr.y - delta)<0){
+        board(0).length - arr.y - delta
+      }else{
+        arr.y - delta
+      }
+      case ">" => if((arr.y + delta)>board(0).length-1){
+        0 + (arr.y + delta - board(0).length)
+      } else {
+        arr.y + delta
+      }
+    }
+  }
+  def calcPosVer(delta: Int, arr: Arrow): Int={
+    arr.name match {
+      case "^" => if((arr.x - delta)<0){
+        val x = board.length - arr.x - delta
+        println(s"ar.x = $x")
+        x
+      }else{
+        val x = arr.x-delta
+        println(s"ar.x = $x")
+        x
+      }
+      case "v" => if((arr.x + delta)>(board.length-1)){
+        0 + (arr.x + delta - board.length)
+      } else {
+        arr.x + delta
+      }
+    }
+  }
   def rotate(id: Int, d: Int) = {
     arrows.foreach(ar => if (ar.id == id) {
       ar.rotate(d)
