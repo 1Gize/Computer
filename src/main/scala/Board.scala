@@ -51,7 +51,7 @@ class Board(x: Int, y: Int) {
           ar.x = calcPosVer(stepsV,ar)
         case ">" => board(ar.x)(calcPosHor(stepsH,ar)) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
-          ar.y - calcPosHor(stepsH,ar)
+          ar.y = calcPosHor(stepsH,ar)
         case "v" => board(calcPosVer(stepsV,ar))(ar.y) = board(ar.x)(ar.y)
           board(ar.x)(ar.y) = None
           ar.x = calcPosVer(stepsV,ar)
